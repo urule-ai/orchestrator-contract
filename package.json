@@ -1,0 +1,44 @@
+{
+  "name": "@urule/orchestrator-contract",
+  "version": "0.1.0",
+  "description": "Orchestrator adapter interface, types, and compliance test suite for Urule",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./testing": {
+      "types": "./dist/testing/index.d.ts",
+      "import": "./dist/testing/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": ["dist"],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "ulid": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/urule-os/orchestrator-contract.git"
+  },
+  "homepage": "https://github.com/urule-os/orchestrator-contract",
+  "bugs": {
+    "url": "https://github.com/urule-os/orchestrator-contract/issues"
+  }
+}
