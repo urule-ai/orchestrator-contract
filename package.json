@@ -35,10 +35,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/urule-os/orchestrator-contract.git"
+    "url": "https://github.com/urule-ai/orchestrator-contract.git"
   },
-  "homepage": "https://github.com/urule-os/orchestrator-contract",
+  "homepage": "https://github.com/urule-ai/orchestrator-contract",
   "bugs": {
-    "url": "https://github.com/urule-os/orchestrator-contract/issues"
+    "url": "https://github.com/urule-ai/orchestrator-contract/issues"
   }
 }

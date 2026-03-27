@@ -2,7 +2,7 @@
 
 Standard interface for AI orchestration adapters -- define once, swap implementations freely.
 
-Part of the [Urule](https://github.com/urule-os/urule) ecosystem — the open-source coordination layer for AI agents.
+Part of the [Urule](https://github.com/urule-ai/urule) ecosystem — the open-source coordination layer for AI agents.
 
 ## Features
 
@@ -106,7 +106,7 @@ adapter.completeRun(handle.runId, { result: 'done' });
 5. Run the compliance suite in your test file to validate correctness
 6. Publish and register with the Urule ecosystem
 
-See [`@urule/langgraph-adapter`](https://github.com/urule-os/langgraph-adapter) for a reference implementation.
+See [`@urule/langgraph-adapter`](https://github.com/urule-ai/langgraph-adapter) for a reference implementation.
 
 ## Contributing
 
