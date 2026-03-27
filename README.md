@@ -2,7 +2,7 @@
 
 Standard interface for AI orchestration adapters -- define once, swap implementations freely.
 
-Part of the [Urule](https://github.com/urule-os/urule) ecosystem.
+Part of the [Urule](https://github.com/urule-os/urule) ecosystem — the open-source coordination layer for AI agents.
 
 ## Features
 
