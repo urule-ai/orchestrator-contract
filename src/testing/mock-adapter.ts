@@ -39,17 +39,20 @@ export class MockOrchestratorAdapter implements OrchestratorAdapter {
   async pauseForApproval(runId: string, approval: ApprovalRequest): Promise<void> {
     const run = this.getRun(runId);
     run.status = 'paused';
-    const approvalId = ulid();
-    run.pendingApprovals.push(approvalId);
+    run.pendingApprovals.push(approval.id ?? ulid());
   }
 
-  async resumeRun(runId: string, _input: ResumeInput): Promise<void> {
+  async resumeRun(runId: string, input: ResumeInput): Promise<void> {
     const run = this.getRun(runId);
     if (run.status !== 'paused') {
       throw new Error(`Cannot resume run ${runId}: status is ${run.status}`);
     }
     run.status = 'running';
-    run.pendingApprovals = [];
+    if (input.approvalId !== undefined) {
+      run.pendingApprovals = run.pendingApprovals.filter((id) => id !== input.approvalId);
+    } else {
+      run.pendingApprovals = [];
+    }
   }
 
   async cancelRun(runId: string, _reason: string): Promise<void> {

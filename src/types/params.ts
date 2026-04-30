@@ -30,6 +30,13 @@ export interface HandoffParams {
 }
 
 export interface ApprovalRequest {
+  /**
+   * Optional caller-supplied identifier for this approval. When present, the
+   * adapter MUST use this value as the pending-approval id so that
+   * `resumeRun({ approvalId })` can target it. When absent, the adapter
+   * generates an id and surfaces it via `RunState.pendingApprovals`.
+   */
+  id?: string;
   /** What is being requested */
   title: string;
   description: string;

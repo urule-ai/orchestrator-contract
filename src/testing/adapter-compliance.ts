@@ -17,7 +17,14 @@ export function runComplianceSuite(
   testFn: {
     describe: (name: string, fn: () => void) => void;
     it: (name: string, fn: () => Promise<void>) => void;
-    expect: (value: unknown) => { toBe: (expected: unknown) => void; toBeDefined: () => void; toBeGreaterThan: (n: number) => void; toThrow: () => void };
+    expect: (value: unknown) => {
+      toBe: (expected: unknown) => void;
+      toBeDefined: () => void;
+      toBeGreaterThan: (n: number) => void;
+      toThrow: () => void;
+      toContain: (item: unknown) => void;
+      not: { toContain: (item: unknown) => void };
+    };
   },
 ): void {
   const { describe, it, expect } = testFn;
@@ -80,6 +87,30 @@ export function runComplianceSuite(
       await adapter.resumeRun(handle.runId, { decision: 'approve' });
       const state = await adapter.getState(handle.runId);
       expect(state.status).toBe('running');
+    });
+
+    it('pauseForApproval honors a caller-supplied id; resumeRun targets it', async () => {
+      const adapter = createAdapter();
+      const handle = await adapter.startRun({
+        agentId: 'agent-1',
+        workspaceId: 'ws-1',
+        input: {},
+      });
+      const externalId = 'approval-from-approvals-svc-123';
+      await adapter.pauseForApproval(handle.runId, {
+        id: externalId,
+        title: 'Approve',
+        description: 'Test',
+        action: 'test',
+        context: {},
+      });
+      const paused = await adapter.getState(handle.runId);
+      expect(paused.pendingApprovals).toContain(externalId);
+
+      await adapter.resumeRun(handle.runId, { decision: 'approve', approvalId: externalId });
+      const resumed = await adapter.getState(handle.runId);
+      expect(resumed.status).toBe('running');
+      expect(resumed.pendingApprovals).not.toContain(externalId);
     });
 
     it('cancelRun changes state to cancelled', async () => {
